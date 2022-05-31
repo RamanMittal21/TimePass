@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ttt</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+            background:url("images/paper.jpg") no-repeat -200px -150px;
+        }
+    	.center{
+    		position: absolute;
+    		top: 50%;
+    		left: 50%;
+    		transform: translate(-50%,-50%);
+    		height:60vh;
+    		width: 60vh;
+    		/*border: 1px solid black;*/
+    	}
+        .indicator{
+            position: absolute;
+            top:50%;
+            left:5%;
+            height: 100px;
+            width: 200px;
+            transform: translateY(-50%);
+        }
+    	.colu{
+    		height: 20vh;
+    		width: 20vh;
+    		border:2px solid black;
+    	}
+        .colu:hover{
+            cursor:pointer;
+        }
+
+
+
+    	.row1{
+    		position: absolute;
+    		top: 0vh;
+    	}
+    	.row2{
+    		position: absolute;
+    		top: 20vh;
+    	}
+    	.row3{
+    		position: absolute;
+    		top: 40vh;
+    	}
+    	.col11,.col21,.col31{
+    		position: absolute;
+    		left: 0vh;
+            border-left: none;
+    	}
+    	.col12,.col22,.col32{
+    		position: absolute;
+    		left: 20vh;
+    	}
+    	.col13,.col23,.col33{
+    		position: absolute;
+    		left: 40vh;
+            border-right: none;
+    	}
+        .col11,.col12,.col13{
+            border-top: none;
+        }
+        .col31,.col32,.col33{
+            border-bottom: none;
+        }
+    	.cross{
+    		background:url("images/cross.png") no-repeat;
+    		background-size: 18vh 18vh;
+    	}
+    	.zero{
+    		background:url("images/zero.png") no-repeat;
+    		background-size: 18vh 18vh;
+            z-index: 2;
+    	}
+        .atTheCenter{
+            text-align: center;
+        }
+        .vm{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #secondModal{
+            z-index: -34;
+        }
+
+
+    </style>
+</head>
+<body>
+	<header>
+        
+		
+	</header>
+
+
+    <div class="modal fade vm" id="secondModal" role="dialog">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+        
+          <div class="modal-content atTheCenter">
+            <div class="modal-header">
+              <h4 class="modal-title">Tic Tac Toe</h4>
+            </div>
+            <div class="modal-body">
+              <p id="modalpara">Please choose between Zero and Cross</p>
+            </div>
+            <div class="modal-footer atTheCenter">
+              <button type="button" class="btn btn-default playAgain" data-dismiss="modal">Play Again</button>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+
+    <!-- Modal  -->
+    <div class="modal fade vm" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+        
+          <div class="modal-content atTheCenter">
+            <div class="modal-header">
+              <h4 class="modal-title">Tic Tac Toe</h4>
+            </div>
+            <div class="modal-body">
+              <p>Please choose between Zero and Cross</p>
+            </div>
+            <div class="modal-footer atTheCenter">
+              <button type="button" class="btn btn-default zeroBtn modalBtn" data-dismiss="modal">Zero</button>
+              <button type="button" class="btn btn-default crossBtn modalBtn" data-dismiss="modal">Cross</button>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+
+    <div class="indicator"></div>
+
+	<div class="center">
+		<div class="row1">
+			<div class="col11 colu "></div>
+			<div class="col12 colu "></div>
+			<div class="col13 colu "></div>
+		</div>
+		<div class="row2">
+			<div class="col21 colu "></div>
+			<div class="col22 colu "></div>
+			<div class="col23 colu "></div>
+		</div>
+		<div class="row3">
+			<div class="col31 colu "></div>
+			<div class="col32 colu "></div>
+			<div class="col33 colu"></div>
+		</div>
+	</div>
+
+    
+
+	<footer>
+		
+	</footer>
+    <script type="text/javascript">
+        var noc=0;
+        var mat=[];
+        mat[0]=[];
+        mat[1]=[];
+        mat[2]=[];
+
+        function feedingMat(flag,store,cross_zero)
+        {
+            if(store.classList.contains("col11"))
+            {
+                mat[0][0]=cross_zero;
+            }
+            else  if(store.classList.contains("col12"))
+            {
+                mat[0][1]=cross_zero;
+            }
+            else  if(store.classList.contains("col13"))
+            {
+                mat[0][2]=cross_zero;
+            }
+            else  if(store.classList.contains("col21"))
+            {
+                mat[1][0]=cross_zero;
+            }
+            else  if(store.classList.contains("col22"))
+            {
+                mat[1][1]=cross_zero;
+            }
+            else  if(store.classList.contains("col23"))
+            {
+                mat[1][2]=cross_zero;
+            }
+            else  if(store.classList.contains("col31"))
+            {
+                mat[2][0]=cross_zero;
+            }
+            else  if(store.classList.contains("col32"))
+            {
+                mat[2][1]=cross_zero;
+            }
+            else  if(store.classList.contains("col33"))
+            {
+                mat[2][2]=cross_zero;
+            }
+        }
+
+        function checkPattern(flag,noc)
+        {
+            var indicator=0,whowin=2,result=0;
+            for(var i=0;i<3;i++)
+            {
+                if(mat[i][0]==1 &&mat[i][1]==1 &&mat[i][2]==1)
+                {
+                    result=1;
+                    indicator=1;
+                    whowin=1;
+                    break;
+                }
+                else if(mat[i][0]==0 &&mat[i][1]==0 &&mat[i][2]==0)
+                {
+                    result=1;
+                    indicator=1;
+                    whowin=0;
+                    break;
+                }
+
+
+                else if(mat[0][i]==1 &&mat[1][i]==1 &&mat[2][i]==1)
+                {
+                    result=1;
+                    indicator=1;
+                    whowin=1;
+                    break;
+                }
+                else if(mat[0][i]==0 &&mat[1][i]==0 &&mat[2][i]==0)
+                {
+                    result=1;
+                    indicator=1;
+                    whowin=0;
+                    break;
+                }
+            }
+            if(indicator==0)
+            {
+                if(mat[0][0]==1 && mat[1][1]==1 && mat[2][2]==1)
+                {
+                    result=1;
+                    whowin=1;
+                }
+                else if(mat[0][0]==0 && mat[1][1]==0 && mat[2][2]==0)
+                {
+                    result=1;
+                    whowin=0;
+                }
+                else if(mat[0][2]==1 && mat[1][1]==1 && mat[2][0]==1)
+                {
+                    result=1;
+                    whowin=1;
+                }
+                else if(mat[0][2]==0 && mat[1][1]==0 && mat[2][0]==0)
+                {
+                    result=1;
+                    whowin=0;
+                }
+            }
+            if(result==1)
+            {
+                
+                if(flag==whowin)
+                {
+                    $("#modalpara").text("Player 1 won");
+                    $("#secondModal").css({"z-index":"1500"});
+                    $("#secondModal").modal();
+                }
+                else
+                {
+                    $("#modalpara").text("Player 2 won");
+                    $("#secondModal").css({"z-index":"1500"});
+                    $("secondModal").modal();
+                }
+
+            }
+            else
+            {
+                if(noc==9)
+                {
+                    $("#modalpara").text("Match Draw");
+                    $("#secondModal").css({"z-index":"1500"});
+                    $("#secondModal").modal();
+                }
+            }
+        }
+
+        $(document).ready(function(){
+            //$("#secondModal").modal({backdrop:"static"});
+            $("#myModal").modal({backdrop:"static"});
+            $(".playAgain").click(function(){
+                location.reload(true);
+            });
+            var flag=0;
+            $(".crossBtn").click(function(){
+                flag=1;
+            });
+            $(".zeroBtn").click(function(){
+                flag=0;
+            });
+
+            var store,cross_zero;
+            
+            $(".colu").click(function(){
+                noc+=1;
+                store=$(this);
+                if(flag==1)
+                {
+                    if(noc%2!=0)
+                    {
+                        cross_zero=1;
+                        store.addClass("cross");
+                        feedingMat(flag,this,cross_zero);
+
+
+
+                    }
+                    else
+                    {
+                        cross_zero=0;
+                        store.addClass("zero");
+                        feedingMat(flag,this,cross_zero);
+                    }    
+                }
+                else
+                {
+                    if(noc%2!=0)
+                    {
+                        cross_zero=0;
+                        store.addClass("zero");
+                        feedingMat(flag,this,cross_zero);
+                    }
+                    else
+                    {
+                        cross_zero=1;
+                        store.addClass("cross");
+                        feedingMat(flag,this,cross_zero);
+                    }
+                }
+                if(noc>=4)
+                {
+                    checkPattern(flag,noc);
+                }
+                
+            });    
+            
+        });
+    </script>
+</body>
+</html>
